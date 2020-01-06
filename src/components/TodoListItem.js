@@ -4,8 +4,9 @@ import './TodoListItem.scss'
 import cn from 'classname'
 
 
-const TodoListItem = ({ todo }) => {
-    const {text, checked} = todo;
+const TodoListItem = ({ todo, onRemove}) => {
+    // id 추가
+    const {id, text, checked} = todo;
 
     return (
         <div className="TodoListItem">
@@ -13,7 +14,8 @@ const TodoListItem = ({ todo }) => {
                 {checked ? <MdCheckBox/> : <MdCheckBoxOutlineBlank/>}
                 <div className="text">{text}</div>    
             </div>
-            <div className="remove">
+            {/* onClick 이벤트 설정 */}
+            <div className="remove" onClick={()=>{onRemove(id)}} >
                 <MdRemoveCircleOutline/>
             </div>            
         </div>

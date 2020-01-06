@@ -36,11 +36,18 @@ function App() {
       nextId.current += 1;
   }, [todos])
 
+  // 글 삭제 함수
+  const onRemove = useCallback(
+    id=>{
+      setTodos(todos.filter( todo => id !== todo.id))
+    }, [todos]
+  )
+
   return (
     <>
       <TodoTemplate>
         <TodoInsert onInsert={onInsert}/>
-        <TodoList todos={todos}/>
+        <TodoList todos={todos} onRemove={onRemove}/>
       </TodoTemplate>
     </>
   );
