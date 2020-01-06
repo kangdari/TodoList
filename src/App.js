@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import TodoTemplate from './components/TodoTemplate'
 import TodoInsert from './components/TodoInsert'
 import TodoList from './components/TodoList'
@@ -21,13 +21,25 @@ function App() {
       checked: true
     },
   ])
-
-
+  // 지역 변수로 사용하기 위해 useRef hook 사용
+  const nextId = useRef(4);
+  
+  // 글 추가 함수
+  const onInsert = useCallback(
+    text=>{
+      const todo = {
+        id: nextId.current,
+        text,
+        checked: false
+      }
+      setTodos(todos.concat(todo));
+      nextId.current += 1;
+  }, [todos])
 
   return (
     <>
       <TodoTemplate>
-        <TodoInsert/>
+        <TodoInsert onInsert={onInsert}/>
         <TodoList todos={todos}/>
       </TodoTemplate>
     </>
