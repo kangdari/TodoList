@@ -43,11 +43,21 @@ function App() {
     }, [todos]
   )
 
+  // check 함수
+  const onToggle = useCallback(
+    id=>{
+      setTodos(todos.map(todo=>
+        // 선택한 todo의 checked 값만 반대로 설정
+        id === todo.id ? { ...todo, checked: !todo.checked} : todo
+      ))
+    }, [todos]
+  )
+
   return (
     <>
       <TodoTemplate>
         <TodoInsert onInsert={onInsert}/>
-        <TodoList todos={todos} onRemove={onRemove}/>
+        <TodoList todos={todos} onRemove={onRemove} onToggle={onToggle}/>
       </TodoTemplate>
     </>
   );
